@@ -1,6 +1,6 @@
 # Claude Code Boilerplate
 
-This is a complete boilerplate structure for Claude Code projects. Use this as a template for setting up new projects with Claude Code configuration.
+A complete boilerplate structure for Claude Code projects with session-based workflow, epic planning, and progress tracking.
 
 ## Directory Structure
 
@@ -8,183 +8,214 @@ This is a complete boilerplate structure for Claude Code projects. Use this as a
 .
 ├── .claude/                      # Claude Code configuration directory
 │   ├── settings.json            # Project-level settings (committed)
+│   ├── commands/                # Slash commands for common workflows
+│   │   ├── init-project.md     # One-time project setup interview
+│   │   ├── start.md            # Begin a session
+│   │   ├── wrap-up.md          # End a session, update docs
+│   │   ├── commit.md           # Commit with smart message
+│   │   ├── status.md           # Quick status check
+│   │   ├── focus.md            # Focus on specific epic
+│   │   ├── plan-epic.md        # Plan a new epic
+│   │   ├── resume-planning.md  # Resume interrupted planning
+│   │   └── validate-setup.md   # Validate project setup
+│   ├── templates/               # Doc templates for initialization
+│   │   ├── architecture.md
+│   │   ├── changelog.md
+│   │   ├── epic.md
+│   │   ├── progress.md
+│   │   └── roadmap.md
 │   ├── rules/                   # Modular instruction files
 │   │   ├── code-style.md       # Code style guidelines
 │   │   ├── testing.md          # Testing standards
 │   │   └── security.md         # Security best practices
 │   ├── agents/                  # Custom subagents
-│   │   ├── qa-improver.md      # QA recursive improvement agent
-│   │   └── code-reviewer.md    # Code review agent
-│   └── skills/                  # Custom skills
-│       └── data-analyzer/       # Example data analysis skill
-│           ├── SKILL.md
-│           └── scripts/
-│               ├── analyze_csv.py
-│               └── generate_report.py
+│   │   ├── code-reviewer.md    # Reviews code for quality/security
+│   │   ├── qa-tester.md        # Runs tests, fixes failures
+│   │   ├── pr-preparer.md      # Prepares pull requests
+│   │   └── refactor.md         # Refactors code safely
+│   └── skills/                  # Custom skills (add your own)
+├── docs/                        # Project documentation
+│   ├── architecture.md         # System architecture
+│   ├── changelog.md            # Version history
+│   ├── progress.md             # Rolling session log (10 max)
+│   ├── roadmap.md              # Epics and status
+│   └── epics/                  # Individual epic docs
 ├── CLAUDE.md                    # Project context and instructions
 ├── .gitignore                   # Includes Claude local file exclusions
 └── README.md                    # This file
 ```
 
-## What's Included
+## Session Workflow
 
-### Configuration Files
+This boilerplate is designed around a session-based development workflow:
 
-- **`.claude/settings.json`**: Project permissions, environment variables, hooks, and model settings
-- **`CLAUDE.md`**: Main project context that Claude reads in every conversation
-- **`.gitignore`**: Configured to exclude local Claude settings (`.local` files)
+### Starting a Session
+```
+/start
+```
+Reads progress log and roadmap, summarizes where you left off, asks what to focus on.
+
+### During Development
+```
+/focus Auth System
+```
+Loads the relevant epic doc and context for focused work.
+
+```
+/status
+```
+Quick status check on current progress.
+
+### Committing Work
+```
+/commit
+```
+Stages all changes and commits with a conventional commit message.
+
+```
+/commit added user preferences feature
+```
+Pass context to guide the commit message.
+
+### Ending a Session
+```
+/wrap-up
+```
+Updates progress log, epic docs, roadmap checkboxes, and changelog.
+
+## Planning Workflow
+
+### Initialize a New Project
+```
+/init-project
+```
+Interview-style setup that fills in CLAUDE.md and creates initial docs.
+
+### Plan a New Epic
+```
+/plan-epic User Notifications
+```
+Structured planning interview with scope, evaluation criteria, and phased breakdown.
+
+### Validate Setup
+```
+/validate-setup
+```
+Checks for missing files, broken links, and placeholder content.
+
+## Documentation System
+
+### Planning Hierarchy
+- **Roadmap** (`/docs/roadmap.md`) – Epics, dependencies, high-level status
+- **Epic Docs** (`/docs/epics/epic-*.md`) – Detailed specs per initiative
+- **Progress Log** (`/docs/progress.md`) – Rolling 10-entry session log
+- **Changelog** (`/docs/changelog.md`) – User-facing version history
+
+### Templates
+Templates in `.claude/templates/` are copied to `/docs/` during initialization.
+
+## Configuration
 
 ### Rules (`.claude/rules/`)
 
-Modular instruction files for different aspects of development:
-- **code-style.md**: Naming conventions, code organization, commenting guidelines
-- **testing.md**: Testing philosophy, coverage goals, best practices
-- **security.md**: Security principles, common vulnerabilities to avoid
+Modular instruction files loaded into every conversation:
+- **code-style.md**: Naming conventions, code organization
+- **testing.md**: Testing philosophy, coverage goals
+- **security.md**: Security principles, common vulnerabilities
 
-### Subagents (`.claude/agents/`)
+### Settings (`.claude/settings.json`)
 
-Pre-configured specialized agents:
-- **qa-improver**: Recursively tests and improves code quality
-- **code-reviewer**: Reviews code changes and PRs with detailed feedback
+```json
+{
+  "permissions": {
+    "allow": ["Bash(npm run lint)", "Bash(npm run test)"],
+    "deny": ["Read(./.env)", "Write(./.env)"]
+  },
+  "env": {
+    "GITHUB_REPO": "your-org/your-repo"
+  }
+}
+```
 
-### Skills (`.claude/skills/`)
+### Local Overrides (gitignored)
 
-Example skill for data analysis:
-- **data-analyzer**: Analyzes CSV/JSON files with Python scripts
+- `.claude/settings.local.json` – Personal permission overrides
+- `.claude/CLAUDE.local.md` – Personal project notes
 
 ## Getting Started
 
-### 1. Customize for Your Project
+### 1. Copy This Boilerplate
+```bash
+cp -r claude-code-boilerplate your-project
+cd your-project
+git init
+```
 
-Edit these files to match your project:
+### 2. Run Project Initialization
+```
+/init-project
+```
+Claude will interview you to fill in project details.
 
-**`CLAUDE.md`**:
-- Update project name and overview
-- Set correct repository URL
-- Define your tech stack
-- List common commands
-- Document architecture
+### 3. Start Building
+```
+/start
+```
+Begin your first session!
 
-**`.claude/settings.json`**:
-- Update `GITHUB_REPO` environment variable
-- Adjust allowed/denied Bash commands
-- Configure hooks as needed
+## Built-in Agents
 
-### 2. Add Your Own Rules
+Claude can automatically delegate to these specialized agents:
 
-Create additional rule files in `.claude/rules/`:
+| Agent | Triggers When | What It Does |
+|-------|---------------|--------------|
+| `code-reviewer` | Code is written, review requested | Reviews for bugs, security, best practices |
+| `qa-tester` | Tests needed, tests failing | Runs tests, diagnoses failures, writes new tests |
+| `pr-preparer` | Ready to submit PR | Runs checks, generates PR description, creates PR |
+| `refactor` | Code cleanup requested | Improves structure without changing behavior |
+
+### How Agents Work
+- Claude decides when to use them based on context
+- They run autonomously and return structured results
+- You can also explicitly request them: *"Use the code-reviewer agent"*
+
+### Customize Agents
+Edit files in `.claude/agents/` to match your project's tech stack and standards.
+
+---
+
+## Adding Custom Components
+
+### Add Rules
 ```bash
 touch .claude/rules/api-design.md
-touch .claude/rules/database.md
 ```
 
-### 3. Create Custom Agents
-
-Add specialized agents for your workflow:
+### Add Agents
 ```bash
 touch .claude/agents/deployment-manager.md
-touch .claude/agents/documentation-writer.md
 ```
 
-### 4. Add Skills
-
-Create skills for repetitive tasks or specialized knowledge:
+### Add Skills
 ```bash
 mkdir -p .claude/skills/my-skill
 touch .claude/skills/my-skill/SKILL.md
 ```
 
-## Configuration Scopes
-
-Claude Code uses a hierarchy of configuration scopes:
-
-| Scope | Location | Committed | Purpose |
-|-------|----------|-----------|---------|
-| **Local** | `.claude/*.local.*` | No (gitignored) | Personal project settings |
-| **Project** | `.claude/` | Yes | Shared team configuration |
-| **User** | `~/.claude/` | No | Your global settings |
-| **Enterprise** | Managed by IT | - | Organization-wide settings |
-
-## Local Overrides
-
-Create these files for personal project customization (automatically gitignored):
-
-- `.claude/settings.local.json` - Personal permission overrides
-- `.claude/CLAUDE.local.md` - Personal project notes
-
-## Using the Subagents
-
-### QA Improver
-```
-Use the qa-improver agent to test and improve the checkout feature
-```
-
-Claude will delegate to the QA agent which will:
-1. Run tests
-2. Identify issues
-3. Fix problems
-4. Re-test
-5. Repeat until quality standards are met
-
-### Code Reviewer
-```
-Use the code-reviewer agent to review my recent changes
-```
-
-The reviewer will analyze your code against project standards and provide detailed feedback.
-
-## Using the Data Analyzer Skill
-
-Claude will automatically use this skill when you work with data:
-
-```
-Analyze the sales_data.csv file and create a summary report
-```
-
-## Environment Variables
-
-The boilerplate includes these environment variables in `settings.json`:
-
-- `GITHUB_REPO`: Your repository (update this!)
-- `MAIN_BRANCH`: Your main branch name
-- `NODE_ENV`: Development environment
-
-Add more as needed for your project.
-
-## Security
-
-The `.gitignore` is configured to prevent committing:
-- `.env` files
-- Local Claude settings
-- Secrets directory
-- API keys and credentials
-
-**Always review files before committing to ensure no secrets are included.**
-
 ## Best Practices
 
-1. **Keep CLAUDE.md updated**: As your project evolves, update the context
-2. **Use modular rules**: Split large instruction sets into topic-specific files
-3. **Document environment setup**: Include all required env vars in CLAUDE.md
-4. **Share with team**: Commit `.claude/` directory to share configuration
-5. **Test agents**: Verify custom agents work as expected
-6. **Review permissions**: Regularly audit allowed/denied commands
-
-## Next Steps
-
-1. Initialize git repository: `git init`
-2. Customize `CLAUDE.md` with your project details
-3. Update environment variables in `settings.json`
-4. Add project-specific rules, agents, and skills
-5. Start using Claude Code: `claude-code`
+1. **Run `/wrap-up` at session end** – Keeps progress log current
+2. **Keep epics modular** – One doc per initiative, no overlap
+3. **Prune progress log** – Max 10 entries, oldest removed
+4. **Update changelog** – For user-facing changes
+5. **Run `/validate-setup`** – Periodically check for issues
 
 ## Learn More
 
-- [Claude Code Documentation](https://code.claude.com/docs)
-- [Skills Documentation](https://code.claude.com/docs/en/skills.md)
-- [Subagents Documentation](https://code.claude.com/docs/en/sub-agents.md)
-- [Settings Reference](https://code.claude.com/docs/en/settings.md)
+- [Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code)
+- [Commands Documentation](https://docs.anthropic.com/en/docs/claude-code/slash-commands)
+- [Settings Reference](https://docs.anthropic.com/en/docs/claude-code/settings)
 
 ---
 
-**Ready to start building!** This boilerplate gives you a solid foundation for working with Claude Code on any project.
+**Ready to start building!** Run `/init-project` to customize for your project.

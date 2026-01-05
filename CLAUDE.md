@@ -5,7 +5,7 @@
 
 ### Planning Hierarchy
 - **Roadmap** (`/docs/roadmap.md`) – Epics, features, high-level status. Updated as work completes. Should contain a modular view of entire project.
-- **Epic Docs** (`/docs/plans/epic-*.md`) – Detailed specs, decisions, implementation phases. One per major initiative, modular no direct overlap 
+- **Epic Docs** (`/docs/epics/epic-*.md`) – Detailed specs, decisions, implementation phases. One per major initiative, modular no direct overlap 
 - **Session Planning** – Use Plan Mode for tactical exploration. Ephemeral, not saved.
 
 ### Progress Tracking
@@ -40,15 +40,30 @@ High-level architecture overview:
 - ** More details can be updated and viewed in /docs/architecture.md 
 
 ## Project Structure
-[INSERT] A high level breakdown of project structure, example: 
+This is a **monorepo** with separate frontend and backend packages:
 ```
-/src          - Source code
-/tests        - Test files
-/examples     - Throwaway code used for demonstration or exploration 
-/docs         - Documentation
-/scripts      - Build and utility scripts
-/.claude      - Claude Code configuration
+/frontend         - Frontend application
+  /src            - React/Vue/etc source code
+  /public         - Static assets
+  /tests          - Frontend tests
+  package.json    - Frontend dependencies
+
+/backend          - Backend API
+  /src            - API source code
+  /tests          - Backend tests
+  package.json    - Backend dependencies
+
+/shared           - Shared code between frontend/backend (types, utils)
+/docs             - Documentation
+/scripts          - Build and utility scripts
+/.claude          - Claude Code configuration
+package.json      - Root workspace config (if using npm/yarn workspaces)
 ```
+
+### Monorepo Conventions
+- Each package has its own `package.json` and can be developed/tested independently
+- Shared types and utilities go in `/shared`
+- Run commands from root or specific package directory as needed
 
 ## Develop Worflow 
 [INSERT] A high level description of the development workflow the project should follow. 
@@ -86,12 +101,13 @@ High-level architecture overview:
 - **Production**: Automatically deploys from `main` branch
 - **Manual Deploy**: Run `npm run deploy`
 
-## Project Documentation in / docs 
-Please review and update this documentation as need throughout the lifcycle of projects development. Not all docs ar
-- Software Archiecture @docs/architecture.md 
-- API Documentation: @docs/api.md
-- Database Schema: @docs/schema.md
-- Design System: @docs/design.md
+## Project Documentation in /docs
+Please review and update this documentation as needed throughout the lifecycle of project development.
+- Software Architecture: @docs/architecture.md 
+- Changelog: @docs/changelog.md
+- API Documentation: @docs/api.md (create when needed)
+- Database Schema: @docs/schema.md (create when needed)
+- Design System: @docs/design.md (create when needed)
 
 ## Notes
 [INSERT] Any project-specific context, gotchas, or important information that Claude should know when working on this project.

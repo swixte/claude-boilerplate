@@ -10,6 +10,16 @@
 └─────────────┘     └─────────────┘     └─────────────┘
 ```
 
+## Monorepo Structure
+```
+/frontend         - Frontend application (port: )
+/backend          - Backend API (port: )
+/shared           - Shared types, utils, constants
+```
+
+**Package Manager:** 
+**Workspace Tool:** (npm workspaces / yarn workspaces / pnpm / turborepo)
+
 ## Components
 
 ### Frontend
@@ -65,29 +75,3 @@
 ## Tech Debt & Known Issues
 <!-- Things that need fixing but aren't blocking -->
 - 
-```
-
----
-
-That's everything. Folder structure when you set it up:
-```
-your-project/
-├── CLAUDE.md
-├── .claude/
-│   └── commands/
-│       ├── init-project.md
-│       ├── start.md
-│       ├── wrap-up.md
-│       ├── plan-epic.md
-│       ├── resume-planning.md
-│       ├── evaluate.md
-│       ├── focus.md
-│       ├── status.md
-│       └── decision.md
-└── docs/
-    ├── templates/
-    │   ├── roadmap.md
-    │   ├── progress.md
-    │   ├── epic.md
-    │   └── architecture.md
-    └── plans/

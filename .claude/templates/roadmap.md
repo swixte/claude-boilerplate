@@ -4,9 +4,9 @@
 
 | # | Epic | Why | Status | Depends On | Doc |
 |---|------|-----|--------|------------|-----|
-| 1 | Project Setup | Foundation for everything | ✅ Done | — | [→ epic-setup.md](/docs/plans/epic-setup.md) |
-| 2 | Auth System | Users need to log in | 🟡 Active | 1 | [→ epic-auth.md](/docs/plans/epic-auth.md) |
-| 3 | Core API | Main functionality | ⚪ Blocked | 2 | [→ epic-api.md](/docs/plans/epic-api.md) |
+| 1 | Project Setup | Foundation for everything | ✅ Done | — | [→ epic-setup.md](/docs/epics/epic-setup.md) |
+| 2 | Auth System | Users need to log in | 🟡 Active | 1 | [→ epic-auth.md](/docs/epics/epic-auth.md) |
+| 3 | Core API | Main functionality | ⚪ Blocked | 2 | [→ epic-api.md](/docs/epics/epic-api.md) |
 | 4 | Dashboard | User-facing UI | ⚪ Blocked | 2, 3 | — |
 | 5 | Polish & Launch | Production ready | ⚪ Blocked | 1-4 | — |
 

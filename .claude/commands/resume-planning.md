@@ -1,7 +1,7 @@
 Resume planning session for: $ARGUMENTS
 
 Check for existing work:
-1. Look for /docs/plans/epic-*.md matching this topic
+1. Look for /docs/epics/epic-*.md matching this topic
 2. Check /docs/progress.md for notes on where we left off
 
 ## If Epic Doc Exists (Partial)

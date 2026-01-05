@@ -20,6 +20,9 @@ Ask me (one at a time):
 
 ## Phase 3: Project Structure
 Ask me:
+- Is this a monorepo with separate frontend/backend folders? (default: yes)
+- If monorepo: What workspace tool? (npm workspaces, yarn workspaces, pnpm, turborepo)
+- Any shared code between frontend/backend? (types, utils, constants)
 - Walk me through your folder structure, or should I scan the repo and propose one?
 
 ## Phase 4: Development Workflow
@@ -50,6 +53,8 @@ Once aligned, update:
 3. **/docs/progress.md** – Create empty template
 
 4. **/docs/architecture.md** – High-level architecture based on tech decisions
+
+5. **/docs/changelog.md** – Initialize with project start entry
 
 ## Rules
 - One question at a time. Wait for my answer.
