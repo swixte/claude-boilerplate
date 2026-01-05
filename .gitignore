@@ -1,0 +1,57 @@
+# Claude Code - Local Configuration
+# These files contain personal settings and should not be committed
+.claude/settings.local.json
+.claude/CLAUDE.local.md
+CLAUDE.local.md
+
+# Dependencies
+node_modules/
+venv/
+env/
+.env
+.env.*
+
+# Build outputs
+dist/
+build/
+*.min.js
+*.min.css
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Testing
+coverage/
+.nyc_output/
+*.test.local.*
+
+# Secrets
+secrets/
+*.key
+*.pem
+credentials.json
+
+# Cache
+.cache/
+.parcel-cache/
+.next/
+.nuxt/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
